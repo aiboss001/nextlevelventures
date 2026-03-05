@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Next Level Ventures</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@300;400;600;700&family=Barlow+Condensed:wght@700;800&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --gold: #C9A84C;
+    --gold-light: #E8C97A;
+    --gold-dark: #8B6914;
+    --black: #050505;
+    --card-bg: #0D0D0D;
+    --red: #E8323A;
+    --white: #F5F5F0;
+    --muted: #888;
+  }
+
+  html, body {
+    min-height: 100vh;
+    background: var(--black);
+    color: var(--white);
+    font-family: 'Barlow', sans-serif;
+    overflow-x: hidden;
+  }
+
+  /* Subtle noise texture overlay */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    opacity: 0.4;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .page {
+    position: relative;
+    z-index: 1;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0 24px 60px;
+  }
+
+  /* ─── HEADER ─── */
+  header {
+    width: 100%;
+    max-width: 900px;
+    padding: 40px 0 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0;
+  }
+
+  .nlv-logo {
+    height: 54px;
+    width: auto;
+    opacity: 0.95;
+    animation: fadeDown 0.7s ease both;
+  }
+
+  /* ─── THESIS ─── */
+  .thesis-block {
+    margin-top: 52px;
+    text-align: center;
+    max-width: 720px;
+    animation: fadeUp 0.7s 0.15s ease both;
+  }
+
+  .thesis-eyebrow {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 16px;
+  }
+
+  .thesis-headline {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(42px, 7vw, 74px);
+    line-height: 0.95;
+    letter-spacing: 0.02em;
+    color: var(--white);
+    margin-bottom: 18px;
+  }
+
+  .thesis-headline em {
+    font-style: normal;
+    color: var(--gold-light);
+  }
+
+  .thesis-sub {
+    font-size: 16px;
+    font-weight: 300;
+    color: #aaa;
+    line-height: 1.6;
+    max-width: 500px;
+    margin: 0 auto;
+  }
+
+  /* ─── GOLD DIVIDER ─── */
+  .divider {
+    width: 60px;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+    margin: 36px auto;
+    animation: fadeUp 0.7s 0.25s ease both;
+  }
+
+  /* ─── CARDS ─── */
+  .cards {
+    width: 100%;
+    max-width: 900px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    animation: fadeUp 0.7s 0.35s ease both;
+  }
+
+  .card {
+    position: relative;
+    background: var(--card-bg);
+    border-radius: 4px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    padding: 48px 36px 40px;
+    cursor: pointer;
+    text-decoration: none;
+    color: inherit;
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+    border: 1px solid rgba(201, 168, 76, 0.12);
+  }
+
+  .card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 24px 60px rgba(0,0,0,0.6), 0 0 0 1px rgba(201,168,76,0.3);
+  }
+
+  /* Glow strip at top */
+  .card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--card-accent, var(--gold)), transparent);
+    opacity: 0.8;
+    transition: opacity 0.3s;
+  }
+
+  .card:hover::before { opacity: 1; }
+
+  /* Corner accent */
+  .card::after {
+    content: '';
+    position: absolute;
+    bottom: 0; right: 0;
+    width: 80px; height: 80px;
+    background: radial-gradient(circle at bottom right, rgba(201,168,76,0.06), transparent 70%);
+  }
+
+  .card-automate {
+    --card-accent: #E8323A;
+  }
+
+  .card-automate::after {
+    background: radial-gradient(circle at bottom right, rgba(232,50,58,0.06), transparent 70%);
+  }
+
+  .card-eyebrow {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 28px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .card-automate .card-eyebrow { color: var(--red); }
+
+  .card-eyebrow::before {
+    content: '';
+    display: inline-block;
+    width: 20px;
+    height: 1px;
+    background: currentColor;
+  }
+
+  /* Pain headline */
+  .card-pain {
+    font-family: 'Barlow', sans-serif;
+    font-size: clamp(17px, 2.2vw, 21px);
+    font-weight: 300;
+    font-style: italic;
+    color: #999;
+    line-height: 1.45;
+    margin-bottom: 20px;
+    quotes: "\201C" "\201D";
+  }
+
+  .card-pain::before { content: open-quote; }
+  .card-pain::after { content: close-quote; }
+
+  /* Card logo image */
+  .card-logo-img {
+    height: 36px;
+    width: auto;
+    margin-bottom: 18px;
+    object-fit: contain;
+    object-position: left;
+  }
+
+  /* Big verb */
+  .card-verb {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(52px, 7vw, 80px);
+    line-height: 0.9;
+    letter-spacing: 0.03em;
+    color: var(--white);
+    margin-bottom: 4px;
+  }
+
+  .card-noun {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: clamp(16px, 2.2vw, 22px);
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 28px;
+  }
+
+  .card-automate .card-noun { color: var(--red); }
+
+  /* Proof line */
+  .card-proof {
+    font-size: 13px;
+    font-weight: 400;
+    color: #666;
+    line-height: 1.5;
+    flex: 1;
+    margin-bottom: 32px;
+  }
+
+  .card-proof strong {
+    color: #aaa;
+    font-weight: 600;
+  }
+
+  /* CTA */
+  .card-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--black);
+    background: var(--gold);
+    padding: 13px 24px;
+    border-radius: 2px;
+    transition: background 0.2s, gap 0.2s;
+    align-self: flex-start;
+  }
+
+  .card-automate .card-cta {
+    background: var(--red);
+  }
+
+  .card:hover .card-cta { gap: 14px; }
+
+  .card-cta svg {
+    width: 12px; height: 12px;
+    transition: transform 0.2s;
+  }
+
+  .card:hover .card-cta svg { transform: translateX(3px); }
+
+  /* ─── FOOTER ─── */
+  footer {
+    margin-top: 64px;
+    text-align: center;
+    animation: fadeUp 0.7s 0.5s ease both;
+  }
+
+  .footer-links {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    margin-bottom: 12px;
+  }
+
+  .footer-links a {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--muted);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  .footer-links a:hover { color: var(--gold); }
+
+  .footer-copy {
+    font-size: 11px;
+    color: #444;
+    letter-spacing: 0.05em;
+  }
+
+  /* ─── ANIMATIONS ─── */
+  @keyframes fadeDown {
+    from { opacity: 0; transform: translateY(-16px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ─── MOBILE ─── */
+  @media (max-width: 640px) {
+    .cards { grid-template-columns: 1fr; }
+    .thesis-headline { font-size: 48px; }
+    .card { padding: 36px 28px 32px; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <header>
+    <!-- Replace src with actual NLV logo URL from GHL -->
+    <img 
+      class="nlv-logo"
+      src="https://assets.cdn.filesafe.space/AQ5ROj6HM2VjLvWFdWH7/media/677db6ed65b87e27e517fa41.png"
+      alt="Next Level Ventures"
+    />
+  </header>
+
+  <div class="thesis-block">
+    <p class="thesis-eyebrow">Next Level Ventures</p>
+    <h1 class="thesis-headline">Two things determine<br>whether your startup<br><em>makes it.</em></h1>
+    <p class="thesis-sub">Capital and automation. Most founders have neither. We solve both.</p>
+  </div>
+
+  <div class="divider"></div>
+
+  <div class="cards">
+
+    <!-- FUND card -->
+    <a href="https://www.acquirefunding.io" class="card card-fund">
+      <span class="card-eyebrow">Acquire Funding</span>
+      <p class="card-pain">Bootstrapping everything because you don't know how to get the capital you actually deserve?</p>
+      <img 
+        class="card-logo-img"
+        src="https://assets.cdn.filesafe.space/AQ5ROj6HM2VjLvWFdWH7/media/68a61042f0f9c3f651383dd5.png"
+        alt="Acquire Funding"
+      />
+      <div class="card-verb">FUND</div>
+      <div class="card-noun">Your Business</div>
+      <p class="card-proof">
+        <strong>$130M+ secured</strong> for 2,100+ entrepreneurs using the SSL Method —
+        structured, sequenced, leveraged at 0% interest.
+      </p>
+      <span class="card-cta">
+        Get Funded
+        <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M1 6h10M7 2l4 4-4 4"/>
+        </svg>
+      </span>
+    </a>
+
+    <!-- AUTOMATE card -->
+    <a href="https://www.setupclaw.tech" class="card card-automate">
+      <span class="card-eyebrow">SetupClaw</span>
+      <p class="card-pain">Still doing manually what AI agents could handle 24/7 for a fraction of the cost?</p>
+      <img
+        class="card-logo-img"
+        src="https://assets.cdn.filesafe.space/AQ5ROj6HM2VjLvWFdWH7/media/68a61042440c5b5d046db418.png"
+        alt="SetupClaw"
+      />
+      <div class="card-verb">AUTOMATE</div>
+      <div class="card-noun">Your Business</div>
+      <p class="card-proof">
+        Deploy <strong>AI agents that never sleep</strong> — handling sales, content, research,
+        and outreach while you focus on growth.
+      </p>
+      <span class="card-cta">
+        Deploy AI
+        <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M1 6h10M7 2l4 4-4 4"/>
+        </svg>
+      </span>
+    </a>
+
+  </div>
+
+  <footer>
+    <div class="footer-links">
+      <a href="https://www.nlvl.co/terms">Terms</a>
+      <a href="https://www.nlvl.co/privacy">Privacy</a>
+      <a href="https://www.nlvl.co/contact">Contact</a>
+    </div>
+    <p class="footer-copy">©2026 Next Level Ventures. All Rights Reserved.</p>
+  </footer>
+
+</div>
+</body>
+</html>
